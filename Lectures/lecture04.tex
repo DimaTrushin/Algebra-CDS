@@ -1,0 +1,424 @@
+\ProvidesFile{lecture04.tex}[Lecture 4]
+
+
+Теперь я хочу сформулировать вторую версию китайской теоремы об остатках.
+
+\begin{claim}
+\label{claim::ChineseMult}
+Пусть $m, n\in \mathbb N$ -- два взаимно простых целых числа, то есть $(m,n) = 1$. Тогда отображение
+\[
+\Phi \colon \mathbb Z_{mn}^* \to \mathbb Z_m^* \times \mathbb Z_n^*,\quad k\mapsto (k\!\!\mod m, k\!\!\mod n)
+\]
+является корректно определенным изоморфизмом групп.
+\end{claim}
+\begin{proof}
+Так как $m$ и $n$ взаимно простые, мы уже знаем, что отображение $\Phi\colon\mathbb Z_{mn}\to \mathbb Z_m \times \mathbb Z_n$ является биекцией, по утверждению~\ref{claim::Chinese}. Ясно, что число $k$ взаимно просто с $mn$ тогда и только тогда, когда оно взаимно просто с $m$ и взаимно просто с $n$ одновременно. Последнее означает, что $\Phi$ индуцирует биекцию $\Phi\colon\mathbb Z_{mn}^*\to \mathbb Z_m^* \times \mathbb Z_n^*$.
+
+Теперь надо показать, что $\Phi$ уважает умножение.
+С одной стороны имеем
+\[
+\Phi(k_1k_2)  = (k_1k_2\!\!\mod m, k_1k_2\!\!\mod n)
+\]
+С другой стороны
+\[
+\Phi(k_1)\Phi(k_2) = (k_1\!\!\mod m, k_1\!\!\mod n)(k_2\!\!\mod m, k_2\!\!\mod n) = (k_1k_2\!\!\mod m, k_1k_2\!\!\mod n)
+\]
+А это доказывает, что $\Phi(k_1k_2) = \Phi(k_1)\Phi(k_2)$, что и требовалось.
+\end{proof}
+
+Последний результат означает, что вычисление группы $\mathbb Z_n^*$ можно свести к вычислению групп $\mathbb Z_{p^k}^*$ где $p$ простое. Действтительно, если $n = p_1^{k_1}\ldots p_r^{k_r}$, то
+\[
+\mathbb Z_n^* \simeq \mathbb Z_{p_1^{k_1}}^*\times\ldots \times \mathbb Z_{p_r^{k_r}}^*
+\]
+Чтобы закончить вычисление, нам надо знать ответ для степеней простых. Давайте сформулируем необходимые результаты без доказательства.
+
+\begin{claim}
+Если $p$ -- нечетное простое и $n$ -- произвольное положительное целое, тогда
+\[
+\mathbb Z_{p^n}^* \simeq \mathbb Z_{p^{n-1}(p-1)}
+\]
+является циклической группой. Кроме того, целое $a\in \mathbb Z_{p^n}$ является образующим $\mathbb Z_{p^n}^* $ тогда и только тогда, когда $a$ является образующим в $\mathbb Z_p^*$ и $a^{p-1}\neq 1 \pmod{ p^2}$. Значит, любой элемент $\mathbb Z_{p^n}^*$ однозначно представляется в виде $a^k$, где $0\leqslant k < p^{n-1}(p-1)$.
+
+В случае степени $2$ ответ будет следующим
+\[
+\mathbb Z_{2^n}^*\simeq
+\left\{
+\begin{aligned}
+&0, & &n\leqslant 1\\
+&\mathbb Z_2, & &n = 2\\
+&\mathbb Z_2\times \mathbb Z_{2^{n-2}}, & &n\geqslant 3
+\end{aligned}
+\right.
+\]
+В случае $n = 2$ группа порождена элементом $3 = -1$. В случае $n \geqslant 3$, первый множитель $\mathbb Z_2$ порожден элементом $2^n - 1 = -1$, а второй множитель $\mathbb Z_{2^{n-2}}$ порожден элементом $5$. Таким образом, любой элемент $\mathbb Z_{2^n}^*$ однозначно представляется в виде $\pm 5^k$, где $0\leqslant k < 2^{n-2}$.
+\end{claim}
+
+В частности группа $\mathbb Z_p^*$ циклическая порядка $p-1$ для любого простого числа $p$. Мы позже докажем более общий результат используя абстрактный алгебраический аппарат.
+
+\begin{claim}
+Элемент $m\in \mathbb Z_n$ является образующим тогда и только тогда, когда $m$ и $n$ взаимно просты.
+\end{claim}
+\begin{proof}
+($\Rightarrow$). Предположим, что $(m, n) = d > 1$. Тогда все элементы $\langle m\rangle$ делятся на $d$. В частности, мы никогда не полчим $1$. Значит $m$ -- не образующий, противоречие. То есть $m$ и $n$ обязаны быть взаимно простыми.
+
+($\Leftarrow$). Мы хотим показать, что $\langle m\rangle = \mathbb Z_n$. Так как $1$ -- образующий $\mathbb Z_n$, достаточно показать, что $1\in \langle m\rangle$. В силу взаимной простоты $m$ и $n$ существуют элементы  $a, b\in \mathbb Z$ такие, что $1 = a m + b n$. Значит $1 = a m \pmod n$. Последнее означает, что $1$ является $a$-ой степенью $m$, а значит, $1 \in \langle m \rangle$.
+\end{proof}
+
+
+\section{Криптография}
+
+\subsection{Общие слова}
+
+Давайте предположим, что у вас есть жена и любовница%
+\footnote{Или муж и любовник, если угодно.}
+и вы очень хотите послать сообщение любовнице. Однако, вы опасаетесь это делать в открытую, так как кто-то в вашей семье недавно купил дробовик и вы точно уверены, что это не вы. В такой неловкой ситуации приходится прибегать к помощи криптографии.
+
+Основная идея стоящая за криптографическими методами состоит в следующем. Оказывается, что есть процедуры, которые в одну сторону вычисляются быстро, а в обратную очень медленно, то есть посчитать прямое отображение легко, а обратное сложно. На основе таких отображений можно строить более хитрые процедуры. Например, процедуры, которые легко выполняются, когда вы знаете некоторую дополнительную секретную информацию и сложно, если вы такой информацией не владеете.
+
+Прежде чем переходить к деталям, давайте я дам пример самых популярных процедур, которые в одну сторону считаются легко, а в другую сложно.
+\begin{itemize}
+\item Очень легко считать произведение целых чисел, даже очень больших.%
+\footnote{На сегодняшний день существует множество хитрых алгоритмов для перемножения очень больших чисел.}
+Однако, процедура разложения целого числа на множители очень сложная, в том смысле, что принципиально лучше чем прямой перебор множителей, мы ничего не знаем.
+
+\item  Предположим, нам задана некоторая абелева группа $G$ и ее элемент $g\in G$. Тогда очень легко считается $g^n$ для любого $n$. А именно у нас есть алгоритм быстрого возведения в степень, который работает приблизительно за $O(\log n)$ операций. С другой стороны, если группа $G$ подобрана правильно, то обратная операция будет медленной. То есть для $h\in \langle g \rangle$ найти такое $n\in \mathbb Z$, что $h = g^n$ будет сложной операцией.
+\end{itemize}
+Первая процедура активно используется в алгоритме шифрования RSA, а вторая в процедуре шифрования Диффи-Хеллмана.
+
+\subsection{Быстрое возведение в степень}
+
+В начале я хочу напомнить алгоритм быстрого возведения в степень. Пусть $G$ -- группа и $g\in G$ -- некоторый элемент и $n \in \mathbb N$. Тогда в мультипликативной и аддитивной нотации имеем
+\[
+g^n = 
+\left\{
+\begin{aligned}
+&g (g^2)^{k}, & &n = 2k + 1\\
+&(g^2)^k, & &n = 2k
+\end{aligned}
+\right.
+\quad\text{or}\quad
+ng = 
+\left\{
+\begin{aligned}
+&g + k(2g), & &n = 2k + 1\\
+&k (2g), & &n = 2k
+\end{aligned}
+\right.
+\]
+Обратите внимание, что левая часть от правой отличается лишь нотацией, то есть в обоих случаях мы умеем лишь применять операцию в группе к двум элементам, а надо быстро найти $n$ кратное применение операции к одному элементу. Давайте для определенности сосредоточимся на мультипликативной нотации.
+
+\paragraph{Дано:}
+
+$g\in G$, $n\in \mathbb N$.
+
+\paragraph{Вывод:}
+
+$g^n\in G$.
+
+Мы используем три временные переменные $r, d\in G$ и $k\in \mathbb N$. Будем поддерживать инвариант  $r d^k = g^n$. Алгоритм останавливается, когда $k = 0$, при этом результат будет записан в $r$.
+
+\paragraph{Алгоритм:}
+
+\begin{enumerate}
+\item Инициализация $r = 1\in G$, $d = g \in G$, $k = n\in \mathbb N$.
+
+\item В цикле проверяем является ли $k$ четным или нечетным. Останавливаем цикл, если $k = 0$.
+\begin{enumerate}
+\item Если $k$ четное, то делаем присваивания $r = r$, $d = d^2$, $k = k / 2$.
+\item Если $k$ нечетно, то делаем присваивания $r = r \cdot d$, $d = d^2$, $k = (k-1) / 2$.
+\end{enumerate}
+\end{enumerate}
+
+\paragraph{Замечания}
+
+Давайте разберемся, как работает алгоритм.
+В процессе вычисления, мы имеем $r d^k = g^n$. В самом начале $r = 1$, $d = g$, $k = n$. Теперь посмотрим, что происходит на каждом шаге в обоих случаях:
+\begin{itemize}
+\item $k = 2m$. Тогда, $r d^{2m} = r (d^2)^m$. И мы обновляем данные $r = r$, $d = d^2$, и $k = m = k/2$.
+\item $k = 2m +1$. Тогда, $r d^{2 m + 1} = (r d) (d^2)^m$. И мы обновляем данные $r = rd$, $d = d^2$, и $k = m = (k - 1) / 2$.
+\end{itemize}
+Таким образом наш инвариант поддерживается на протяжении всего алгоритма и при $k = 0$ в $r$ будет содержаться ответ.
+
+Я хочу обратить внимание на еще одну похожую процедуру. Пусть для определенности $n = 11$. Тогда в двоичной записи $11 = 1 + 2 + 2^3 = 1 + 2 ( 1 + 2( 0 + 2 ))$. Теперь можно вот как расписать возведение в степень
+\[
+g^{11} = g^{1 + 2 ( 1 + 2( 0 + 2 ))} = g (g^{ 1 + 2( 0 + 2 )})^2 =  g (g (g^{ 0 + 2 })^2)^2 =   g (g (g^{ 2 })^2)^2
+\]
+Если $n = 2^k$, то вам потребуется в точности $k$ операций. Например, если $n = 8 = 2^3$, то $g^8 = ((g^2)^2)^2$. Таким образом у нас $\log_2 n$ операций. В общем случае количество операций будет пропорционально $\log_2 n$. Но я не хочу считать его аккуратно.
+
+\subsection{Сложность проблемы дискретного логарифмирования}\label{section::DiscreteLog}
+
+Пусть $G$ -- группа, $g\in G$ и $h \in \langle g\rangle$. Напомню, что поиск такого $n\in \mathbb N$, что $g^n = h$ называется проблемой дискретного логарифмирования. Важно понимать, что эта процедура может выполняться как быстро, так и медленно. Давайте приведем соответствующие примеры.
+
+\begin{examples}
+\begin{enumerate}
+\item Пусть $G = \mathbb Z$ со сложением, $g = 1$ и $h = k$. Тогда ясно, что требуемое $n$ равно $k$. Действительно, $ng = h$. В этом случае проблема дискретного логарифмирования тривиальна и не требует никаких вычислений.%
+\footnote{Даже изменение $g$ на другой элемент группы, не делает проблему сложнее.}
+
+\item Пусть $G = \mathbb Z_m$ со сложением, $g = a\in \mathbb Z_m$, и $h = b\in \mathbb Z_n$. Тогда нам надо найти такое $n\in\mathbb N$, что $na = b \pmod m$. Эта проблема эффективно решается с помощью расширенного алгоритма Евклида.
+
+\item Пусть $p$ -- простое число, $G = \mathbb Z_p^*$ с умножением и $g = a\in \mathbb Z_p^*$ -- некоторый порождающий группы и $h = b\in \mathbb Z_p^*$. Тогда проблема заключается в поиске $n\in \mathbb N$ такого, что $a^n = b \pmod p$. Весь опыт человечества подсказывает нам, что эта проблема по видимому действительно сложная и быстро не решается.
+\end{enumerate}
+\end{examples}
+
+\subsection{Диффи-Хеллман}
+
+В начале нам надо фиксировать некоторую группу $G$, ее элемент $g\in G$ и посчитать его порядок $n = \ord g$.
+Возможный выбор группы будет такой: $G = \mathbb Z_p^*$, где $p$ простое, а $g$ -- провзвольный образующий. Порядок в этом случае будет равен $p - 1$. Поиск образующего -- неприятная задача, но ее достаточно проделать единожды.
+
+Давайте я напомню контекст
+У нас есть три участника: вы, жена и любовница.
+Процесс обмены сообщениями состоит из следующих общих шагов.
+\begin{enumerate}
+\item Перевести текстовое сообщение (или его часть) в элемент группы $t\in G$.
+
+\item Зашифровать элемент $t$ и получить зашифрованный элемент $t'\in G$.
+
+\item Элемент $t'$ передается по сети и становится известен всем.
+
+\item Расшифровать элемент $t'$ и получить исходное сообщение в виде элемента $t$.
+
+\item Перевести элемент $t$ обратно в текстовое сообщение (или его часть).
+\end{enumerate}
+Шаги (1) и (5) обычно делаются с помощью некой обще известной таблицы, которая известна всем участникам. То есть нет никакого секрета в том, как именно вы преобразуете сообщения из текста в элементы группы и обратно. Не волнуйтесь, ваша жена с этим справится. Все шифрование ведется только на уровне элементов групп.
+
+\paragraph{Обмен ключами}
+
+Прежде чем передавать зашифрованные сообщения, вы с любовницей должны подготовить специальный приватный ключ, с помощью которого и будет вестись шифровка и расшифровка. До создания такого ключа, коммуникация не возможна.
+
+Давайте изобразим весь процесс на следующей диаграмме. Она показывает, что кому известно.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+{\bf Участники}&{Вы}&{Жена}&{Любовница}\\
+\hline
+{\bf Знания}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}\\
+\hline
+\end{tabular}
+\end{center}
+
+Вы генерируете случайное число $a\in \mathbb Z_n^*$ и считаете открытый ключ $r = g^a\in G$. Ваша любовница генерирует случайное число $b\in \mathbb Z_n^*$ и считает свой открытый ключ $s = g^b\in G$.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+{\bf Участники}&{Вы}&{Жена}&{Любовница}\\
+\hline
+\multirow{2}{*}{\bf Знания}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}\\
+{}&{ \textcolor{blue}{$r$}$=$\textcolor{OliveGreen}{$ g$}\textcolor{red}{${}^a$}}&{}&{ \textcolor{blue}{$s$}$=$\textcolor{OliveGreen}{$g$}\textcolor{red}{${}^b$}}\\
+\hline
+\end{tabular}
+\end{center}
+
+Вы и любовница передаете всем свои открытые ключи $r$ и $s$. Поэтому эти элементы становятся известны всем в том числе и жене. Но никто не знает элементов $a$ и $b$, так как для их поиска надо решить задачу дискретного логарифмирования в группе $G$, а мы выбрали ее и элемент $g\in G$ так, чтобы эта проблема была сложной.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+{\bf Участники}&{Вы}&{Жена}&{Любовница}\\
+\hline
+\multirow{2}{*}{\bf Знания}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}\\
+{}&{ \textcolor{blue}{$r$}$=$\textcolor{OliveGreen}{$ g$}\textcolor{red}{${}^a$}, \textcolor{blue}{$s$}}&{\textcolor{blue}{$r$, $s$}}&{ \textcolor{blue}{$s$}$=$\textcolor{OliveGreen}{$g$}\textcolor{red}{${}^b$}, \textcolor{blue}{$r$}}\\
+\hline
+\end{tabular}
+\end{center}
+
+Теперь можно построить приватный ключ. Делается это так. Вы возводите элемент $s$ в степень $a$ и получаете $s^a = (g^b)^a = g^{ab}$. Любовница возводит элемент $r$ в степень $b$ и получает $r^b = (g^a)^b = g^{ab}$. Теперь у вас у обоих есть секретный ключ $k = g^{ab}$.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+{\bf Участники}&{Вы}&{Жена}&{Любовница}\\
+\hline
+\multirow{3}{*}{\bf Знания}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}\\
+{}&{ \textcolor{blue}{$r$}$=$\textcolor{OliveGreen}{$ g$}\textcolor{red}{${}^a$}, \textcolor{blue}{$s$}}&{\textcolor{blue}{$r$, $s$}}&{ \textcolor{blue}{$s$}$=$\textcolor{OliveGreen}{$g$}\textcolor{red}{${}^b$}, \textcolor{blue}{$r$}}\\
+{}&{ \textcolor{red}{$k$}$=$\textcolor{blue}{$s$}\textcolor{red}{${}^a$}}&{}&{ \textcolor{red}{$k$}$=$\textcolor{blue}{$r$}\textcolor{red}{${}^b$}}\\
+\hline
+\end{tabular}
+\end{center}
+
+В результате описанной выше процедуры у вас и любовницы есть общий приватный ключ $k\in G$ и никто, даже ваша жена, не способны его найти. Однако, чтобы эта процедура была надежная, надо аккуратно выбирать  группу $G$ и элемент $g\in G$.
+
+\paragraph{Передача сообщений}
+
+Теперь самое время слать сладкие сообщения друг другу.
+Как я уже описал, мы должны перевести текстовые сообщения в элементы группы $G$.
+Предположим, что мы используем русский алфавит с $33$ буквами. Еще можно использовать точку, запятую, восклицательный знак и знак пробела. Итого в общей сложности $37$ символов.
+Всего существует $37^m$ текстовых строк длины $m$.
+Если $37^m \leqslant n$, мы можем отобразить все такие последовательности в элементы группы $G$ инъективно. 
+Таким образом у нас есть механизм перевода сообщения в элементы группы $G$.
+
+Теперь я собираюсь игнорировать стадию перевода.
+Наша цель -- послать элемент группы $G$. Предположим, у нас есть элемент $h\in G$, который является сообщением, которое нужно послать любовнице.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+{\bf Участники}&{Вы}&{Жена}&{Любовница}\\
+\hline
+\multirow{4}{*}{\bf Знания}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}\\
+{}&{ \textcolor{blue}{$r$}$=$\textcolor{OliveGreen}{$ g$}\textcolor{red}{${}^a$}, \textcolor{blue}{$s$}}&{\textcolor{blue}{$r$, $s$}}&{ \textcolor{blue}{$s$}$=$\textcolor{OliveGreen}{$g$}\textcolor{red}{${}^b$}, \textcolor{blue}{$r$}}\\
+{}&{ \textcolor{red}{$k$}$=$\textcolor{blue}{$s$}\textcolor{red}{${}^a$}}&{}&{ \textcolor{red}{$k$}$=$\textcolor{blue}{$r$}\textcolor{red}{${}^b$}}\\
+{}&{\textcolor{red}{$h$}}&{}&{}\\
+\hline
+\end{tabular}
+\end{center}
+
+В начале надо зашифровать сообщение $h$. Зашифровка представляет из себя умножение $h$ на приватный ключ $k$. Полученное сообщение $m = hk$ мы пересылаем любовнице.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+{\bf Участники}&{Вы}&{Жена}&{Любовница}\\
+\hline
+\multirow{4}{*}{\bf Знания}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}\\
+{}&{ \textcolor{blue}{$r$}$=$\textcolor{OliveGreen}{$ g$}\textcolor{red}{${}^a$}, \textcolor{blue}{$s$}}&{\textcolor{blue}{$r$, $s$}}&{ \textcolor{blue}{$s$}$=$\textcolor{OliveGreen}{$g$}\textcolor{red}{${}^b$}, \textcolor{blue}{$r$}}\\
+{}&{ \textcolor{red}{$k$}$=$\textcolor{blue}{$s$}\textcolor{red}{${}^a$}}&{}&{ \textcolor{red}{$k$}$=$\textcolor{blue}{$r$}\textcolor{red}{${}^b$}}\\
+{}&{\textcolor{red}{$h$}, $\textcolor{blue}{m} = \textcolor{red}{hk}$}&{\textcolor{blue}{$m$}}&{\textcolor{blue}{$m$}}\\
+\hline
+\end{tabular}
+\end{center}
+
+Любовнице, чтобы раскодировать сообщение надо поделить его на секретный ключ, то есть вычислить $h = m k^{-1}$. Если в группе операция взятия обратного отдельно не известна, то по следствию~3 из теоремы Лагранжа это выражение можно посчитать так: $h = m k^{-1} = m k^{n - 1}$.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+{\bf Участники}&{Вы}&{Жена}&{Любовница}\\
+\hline
+\multirow{4}{*}{\bf Знания}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}\\
+{}&{ \textcolor{blue}{$r$}$=$\textcolor{OliveGreen}{$ g$}\textcolor{red}{${}^a$}, \textcolor{blue}{$s$}}&{\textcolor{blue}{$r$, $s$}}&{ \textcolor{blue}{$s$}$=$\textcolor{OliveGreen}{$g$}\textcolor{red}{${}^b$}, \textcolor{blue}{$r$}}\\
+{}&{ \textcolor{red}{$k$}$=$\textcolor{blue}{$s$}\textcolor{red}{${}^a$}}&{}&{ \textcolor{red}{$k$}$=$\textcolor{blue}{$r$}\textcolor{red}{${}^b$}}\\
+{}&{\textcolor{red}{$h$}, $\textcolor{blue}{m} = \textcolor{red}{hk}$}&{\textcolor{blue}{$m$}}&{\textcolor{blue}{$m$}, $\textcolor{red}{h} = \textcolor{blue}{m} \textcolor{red}{k}^{\textcolor{OliveGreen}{n}-1}$}\\
+\hline
+\end{tabular}
+\end{center}
+
+И вуаля, никто не пострадал, сообщение благополучно доставлено.
+
+\paragraph{Модификация передачи}
+
+
+В описанной выше схеме передачи информации приватный ключ остается одним и тем же на протяжение всего сеанса связи. Это делает систему более уязвимой. Существует следующая модификация с односторонней передачей информации. Глобально она устроена так: вы создаете и публикуете свой открытый ключ. Этот этап рассматривается как приглашение передавать вам информацию. Далее любовница начинает транслировать вам сообщение с переменным ключом. Давайте опишем этот процесс более аккуратно.
+
+Для приглашения транслировать вам сообщения, вы должны придумать секретное $a\in \mathbb Z_n^*$ и передать всем открытый ключ $r = g^a$.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+{\bf Участники}&{Вы}&{Жена}&{Любовница}\\
+\hline
+\multirow{2}{*}{\bf Знания}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}\\
+{}&{ \textcolor{blue}{$r$}$=$\textcolor{OliveGreen}{$ g$}\textcolor{red}{${}^a$}}&{\textcolor{blue}{$r$}}&{\textcolor{blue}{$r$}}\\
+\hline
+\end{tabular}
+\end{center}
+
+Теперь предположим, что у любовницы есть последовательность сообщений $h_1,\ldots, h_k$. Тогда она выбирает для каждого сообщения $h_i$ свое секретное $b_i\in\mathbb Z_n^*$. После создает открытый и приватный ключи по правилу $s_i = g^{b_i}$ и $k_i = r^{b_i}$. Каждое сообщение кодируется своим приватным ключом $m_i = h_i k_i$. После этого любовница транслирует в сеть пары $(m_1, s_1),\ldots,(m_k, s_k)$.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+{\bf Участники}&{Вы}&{Жена}&{Любовница}\\
+\hline
+\multirow{6}{*}{\bf Знания}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}\\
+{}&{ \textcolor{blue}{$r$}$=$\textcolor{OliveGreen}{$ g$}\textcolor{red}{${}^a$}}&{\textcolor{blue}{$r$}}&{\textcolor{blue}{$r$}}\\
+{}&{}&{}&{\textcolor{red}{$h_1,\ldots,h_k$}$\in G$}\\
+{}&{}&{}&{\textcolor{red}{$b_1,\ldots,b_k$}$\in \mathbb Z_n^*$}\\
+{}&{}&{}&{$\textcolor{blue}{s_i} = \textcolor{OliveGreen}{g}^{\textcolor{red}{b_i}}$, $\textcolor{red}{k_i} = \textcolor{blue}{r}^{\textcolor{red}{b_i}}$}\\
+{}&{\textcolor{blue}{$(m_i, s_i)$}}&{\textcolor{blue}{$(m_i, s_i)$}}&{$\textcolor{blue}{m_i} = \textcolor{red}{h_i k_i}$}\\
+\hline
+\end{tabular}
+\end{center}
+
+Чтобы расшифровать сообщение надо построить приватный ключ $k_i = s_i^a$. Это можете сделать только вы, так как только вы знаете $a$. Далее надо найти $h_i = m_i k_i^{-1}$.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+{\bf Участники}&{Вы}&{Жена}&{Любовница}\\
+\hline
+\multirow{7}{*}{\bf Знания}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}&{\textcolor{OliveGreen}{$G$}, \textcolor{OliveGreen}{$g$}, \textcolor{OliveGreen}{$n$}}\\
+{}&{ \textcolor{blue}{$r$}$=$\textcolor{OliveGreen}{$ g$}\textcolor{red}{${}^a$}}&{\textcolor{blue}{$r$}}&{\textcolor{blue}{$r$}}\\
+{}&{}&{}&{\textcolor{red}{$h_1,\ldots,h_k$}$\in G$}\\
+{}&{}&{}&{\textcolor{red}{$b_1,\ldots,b_k$}$\in \mathbb Z_n^*$}\\
+{}&{}&{}&{$\textcolor{blue}{s_i} = \textcolor{OliveGreen}{g}^{\textcolor{red}{b_i}}$, $\textcolor{red}{k_i} = \textcolor{blue}{r}^{\textcolor{red}{b_i}}$}\\
+{}&{\textcolor{blue}{$(m_i, s_i)$}}&{\textcolor{blue}{$(m_i, s_i)$}}&{$\textcolor{blue}{m_i} = \textcolor{red}{h_i k_i}$}\\
+{}&{$\textcolor{red}{k_i} = \textcolor{blue}{s_i}^{\textcolor{red}{a}}$, $\textcolor{red}{h_i} = \textcolor{blue}{m_i} \textcolor{red}{k_i}^{-1}$}&{}&{}\\
+\hline
+\end{tabular}
+\end{center}
+
+Если мы хотим передавать сообщения в обратную сторону, то надо повторить всю схему с начала но симметрично. То есть любовница публикует свой открытый ключ, а вы уже генерируете серию зашифрованных сообщений.
+
+\subsection{RSA}
+
+Давайте я кратко расскажу, как работает схема шифрования RSA. Это схема односторонней передачи. Давайте я опишу ее по шагам.
+
+\paragraph{Установка связи}
+
+Если вы хотите, чтобы любовница передала вам сообщение вы должны проделать подготовительную работу. В начале вы придумываете два простых числа $p$ и $q$ и вычисляете $n = pq$. Число $n$ публикуется для всех. И в качестве сообщений рассматриваются элементы $\mathbb Z_n^*$.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+{\bf Участники}&{Вы}&{Жена}&{Любовница}\\
+\hline
+{\bf Знания}&{\textcolor{red}{$p$, $q$}, $\textcolor{blue}{n} = \textcolor{red}{pq}$}&{\textcolor{blue}{$n$}, $\mathbb Z_n^*$}&{\textcolor{blue}{$n$}, $\mathbb Z_n^*$}\\
+\hline
+\end{tabular}
+\end{center}
+
+Теперь мы хотим построить открытый ключ, который позволит слать нам сообщения. Делается это так. В начале вычисляем $\varphi(n) = (p-1)(q-1)$.%
+\footnote{Здесь $\varphi(n)$ -- функция Эйлера, по определению $\varphi(n) = |\mathbb Z_n^*|$. С помощью результатов про структуру $\mathbb Z_n^*$ мы можем ее явно вычислить.}
+Теперь мы берем произвольное число $e\in \mathbb Z_{\varphi(n)}^*$. Открытым ключом считается пара $(e, n)$.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+{\bf Участники}&{Вы}&{Жена}&{Любовница}\\
+\hline
+\multirow{2}{*}{\bf Знания}&{\textcolor{red}{$p$, $q$}, $\textcolor{blue}{n} = \textcolor{red}{pq}$}&{\textcolor{blue}{$n$}, $\mathbb Z_n^*$}&{$\mathbb Z_n^*$}\\
+{}&{\textcolor{blue}{$e$}}&{\textcolor{blue}{$(e, n)$}}&{\textcolor{blue}{$(e, n)$}}\\
+\hline
+\end{tabular}
+\end{center}
+
+Теперь мы должны построить приватный ключ, для расшифровки сообщений. Для этого мы находим число $d\in \mathbb Z_{\varphi(n)}^*$ такое, что $de = 1$ в $\mathbb Z_{\varphi(n)}^*$. Это делается по расширенному алгоритму Евклида применяя его для поиска наибольшего общего делителя $e$ и $\varphi(n)$.
+Приватным ключом считается пара $(d, n)$. Обратите внимание, что никто не может получить $d$, так как для его вычисления надо знать $\varphi(n)$. А для ее вычисления надо знать разложение $n$ на множители, что сложно.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+{\bf Участники}&{Вы}&{Жена}&{Любовница}\\
+\hline
+\multirow{3}{*}{\bf Знания}&{\textcolor{red}{$p$, $q$}, $\textcolor{blue}{n} = \textcolor{red}{pq}$}&{\textcolor{blue}{$n$}, $\mathbb Z_n^*$}&{$\mathbb Z_n^*$}\\
+{}&{\textcolor{blue}{$e$}}&{\textcolor{blue}{$(e, n)$}}&{\textcolor{blue}{$(e, n)$}}\\
+{}&{$\textcolor{red}{d}\textcolor{blue}{e} = 1 \pmod{ \textcolor{red}{\varphi(n)}}$}&{}&{}\\
+\hline
+\end{tabular}
+\end{center}
+
+
+\paragraph{Передача сообщения}
+
+Теперь предположим у любовницы есть для вас сообщение $h\in \mathbb Z_n^*$. Она должна вычислить зашифрованное сообщение по правилу $m = h^e \pmod n$. И сообщение $m$ рассылается всем.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+{\bf Участники}&{Вы}&{Жена}&{Любовница}\\
+\hline
+\multirow{3}{*}{\bf Знания}&{\textcolor{red}{$p$, $q$}, $\textcolor{blue}{n} = \textcolor{red}{pq}$}&{\textcolor{blue}{$n$}, $\mathbb Z_n^*$}&{$\mathbb Z_n^*$}\\
+{}&{\textcolor{blue}{$e$}}&{\textcolor{blue}{$(e, n)$}}&{\textcolor{blue}{$(e, n)$}}\\
+{}&{$\textcolor{red}{d}\textcolor{blue}{e} = 1 \pmod{ \textcolor{red}{\varphi(n)}}$}&{}&{$\textcolor{red}{h}\in \mathbb Z_n^*$}\\
+{}&{\textcolor{blue}{$m$}}&{\textcolor{blue}{$m$}}&{$\textcolor{blue}{m} = \textcolor{red}{h}^{\textcolor{blue}{e}} \pmod{\textcolor{blue}{n}$}}\\
+\hline
+\end{tabular}
+\end{center}
+
+Чтобы расшифровать сообщение вы используете следующую функцию $h = m^d \pmod n$. Этот метод действительно работает, вот почему. Мы знаем, что $de = 1 \pmod{\varphi(n)}$. Это значит, что $de = 1 + \varphi(n) k =  1 + |\mathbb Z_n^*| k$. Теперь
+\[
+m^d = h^{ed} =
+h^{1 + |\mathbb Z_n^*|k} = h \left(h^{|\mathbb Z_n^*|}\right)^k = h \text{ в группе }\mathbb Z_n^*
+\]
+Последнее равенство выполнено по следствию~3 из теоремы Лагранжа.
+\begin{center}
+\begin{tabular}{|c|c|c|c|}
+\hline
+{\bf Участники}&{Вы}&{Жена}&{Любовница}\\
+\hline
+\multirow{4}{*}{\bf Знания}&{\textcolor{red}{$p$, $q$}, $\textcolor{blue}{n} = \textcolor{red}{pq}$}&{\textcolor{blue}{$n$}, $\mathbb Z_n^*$}&{$\mathbb Z_n^*$}\\
+{}&{\textcolor{blue}{$e$}}&{\textcolor{blue}{$(e, n)$}}&{\textcolor{blue}{$(e, n)$}}\\
+{}&{$\textcolor{red}{d}\textcolor{blue}{e} = 1 \pmod{ \textcolor{red}{\varphi(n)}}$}&{}&{$\textcolor{red}{h}\in \mathbb Z_n^*$}\\
+{}&{\textcolor{blue}{$m$}}&{\textcolor{blue}{$m$}}&{$\textcolor{blue}{m} = \textcolor{red}{h}^{\textcolor{blue}{e}} \pmod{\textcolor{blue}{n}$}}\\
+{}&{$\textcolor{red}{h} = \textcolor{blue}{m}^{\textcolor{red}{d}} \pmod{ \textcolor{blue}{n}}$}&{}&{}\\
+\hline
+\end{tabular}
+\end{center}
