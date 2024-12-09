@@ -30,3 +30,7 @@
 
 \renewcommand{\Re}{\operatorname{Re}}
 \renewcommand{\Im}{\operatorname{Im}}
+
+\newcounter{gitem}
+\newcommand{\gitem}{\par\addtocounter{gitem}{1}\noindent\textbf{\arabic{gitem})}\; }
+\newcommand{\gitemreset}{\setcounter{gitem}{0}}
