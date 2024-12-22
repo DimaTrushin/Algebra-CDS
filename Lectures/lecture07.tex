@@ -53,6 +53,7 @@
 \subsection{Характеристика}
 
 \begin{definition}
+\label{def::FieldChar}
 Пусть $F$ -- поле.
 Характеристика поля $F$ -- это такое минимальное натуральное число $p$, что
 \[
@@ -80,6 +81,7 @@ n x = \underbrace{x+\ldots + x}_n
 \end{examples}
 
 \begin{claim}
+\label{claim::FieldChar}
 Если $F$ -- поле, то $\chr F$ либо равна нулю, либо простое число.
 \end{claim}
 \begin{proof}
@@ -165,6 +167,7 @@ n\cdot 1 + m \cdot 1 = (m+n)\cdot 1 = (qp) \cdot 1 + r\cdot 1 = q(p \cdot 1) + r
 \end{proof}
 
 \subsection{Расширения полей}
+\label{section::RootExt}
 
 Предположим $F$ -- некоторое поле и $K$ -- другое поле содержащее $F$ в качестве подполя.
 В этом случае мы будем говорить, что $K$ -- расширение поля $F$.
@@ -239,6 +242,7 @@ n\cdot 1 + m \cdot 1 = (m+n)\cdot 1 = (qp) \cdot 1 + r\cdot 1 = q(p \cdot 1) + r
 Такие поля будут самыми полезными в приложениях.
 
 \begin{claim}
+\label{claim::FiniteFieldChar}
 Если $F$ -- конечное поле, то его характеристика не ноль.
 В частности, $F$ содержит $\mathbb Z_p$, где $p = \chr F$.
 \end{claim}
@@ -250,6 +254,7 @@ n\cdot 1 + m \cdot 1 = (m+n)\cdot 1 = (qp) \cdot 1 + r\cdot 1 = q(p \cdot 1) + r
 \end{proof}
 
 \begin{claim}
+\label{claim::FiniteFieldSize}
 Предположим $F$ -- конечное поле и $\chr F = p$.
 Тогда, $|F| = p^n$ для некоторого $n$.
 Более того, можно уточнить, что $n = [F:\mathbb Z_p]$.
@@ -264,6 +269,7 @@ n\cdot 1 + m \cdot 1 = (m+n)\cdot 1 = (qp) \cdot 1 + r\cdot 1 = q(p \cdot 1) + r
 \end{proof}
 
 \begin{claim}
+\label{claim::FiniteFieldMultGroupCyclic}
 Пусть $F$ -- конечное поле.
 Тогда группа $F^*$ является циклической порядка $|F| - 1$.
 \end{claim}
@@ -282,6 +288,7 @@ n\cdot 1 + m \cdot 1 = (m+n)\cdot 1 = (qp) \cdot 1 + r\cdot 1 = q(p \cdot 1) + r
 А вот очень важный классификационный результат для конечных полей (я не собираюсь его доказывать).
 
 \begin{claim}
+\label{claim::FiniteFieldClassification}
 Для любого простого числа $p$ и любого натурального $n$ существует единственное с точностью до изоморфизма поле $F$ содержащее $p^n$ элементов.
 \end{claim}
 
@@ -346,6 +353,7 @@ n\cdot 1 + m \cdot 1 = (m+n)\cdot 1 = (qp) \cdot 1 + r\cdot 1 = q(p \cdot 1) + r
 \end{remarks}
 
 \subsection{Случайный генератор Галуа}
+\label{section::GaloisGen}
 
 Существует понятие регистра сдвига с линейной обратной связью.
 Это специальный вид регистра производящий последовательность бит.

@@ -70,6 +70,7 @@ f_1'=f_1 - \frac{a}{c_g}tg,\quad f_2'=f_2 - \frac{b}{c_g}tg
 
 \begin{claim}
 [The Diamond Lemma]
+\label{claim::DiamondLemma}
 Пусть $F$ -- поле, мы фиксировали лексикографический порядок на мономах от $n$ переменных и $G\subseteq F[x_1,\ldots,x_n]\setminus\{0\}$ -- некоторое множество.
 Тогда следующие условия эквивалентны
 
@@ -174,6 +175,7 @@ f  \stackrel{g_2}{\longrightarrow}f_2  \stackrel{G}{\rightsquigarrow} r_2
 
 \begin{claim}
 [Критерий Бухбергера]
+\label{claim::BuchbergerCrit}
 Пусть $F$ -- поле, мы фиксировали лексикографический порядок на мономах от $n$ переменных, и $G\subseteq F[x_1,\ldots,x_n]\setminus\{0\}$ -- некоторое множество.
 Тогда следующие условия эквиваленты:
 \begin{enumerate}
@@ -262,6 +264,8 @@ a_2t_2g_2 - a_1 t_1 g_1 - \frac{a_2 c_2 - a_1 c_1}{c_1}t_1 g_1 = a_2 t_2 g_2 - \
 Начать я хочу со вспомогательной леммы про мономы.
 
 \begin{claim}
+[Лемма Диксона]
+\label{claim::DicksonLemma}
 Пусть у нас дана последовательность мономов от $n$ переменных: $m_1, m_2, \ldots, m_n,\ldots$.
 Предположим, что для любого $i$ моном $m_i$ не делится на более ранние мономы $m_j$ при $j < i$.
 Тогда данная последовательность мономов конечна.
@@ -290,6 +294,7 @@ a_2t_2g_2 - a_1 t_1 g_1 - \frac{a_2 c_2 - a_1 c_1}{c_1}t_1 g_1 = a_2 t_2 g_2 - \
 \end{proof}
 
 \begin{claim}
+\label{claim::BuchbergerTerminates}
 Алгоритм Бухбергера останавливается.
 \end{claim}
 \begin{proof}

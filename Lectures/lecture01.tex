@@ -14,6 +14,7 @@
 \subsection{Определения}
 
 \begin{definition}
+\label{def::BinOp}
 Пусть $X$ -- некоторое множество.
 Бинарная операция на $X$ -- это отображение $\circ\colon X\times X\to X$ по правилу $(x, y)\mapsto x\circ y$ для всех $x, y\in X$.
 \end{definition}
@@ -28,6 +29,7 @@
 Давайте я повторю определение операции в функциональном стиле.
 
 \begin{definition}
+\label{def::BinOpF}
 Пусть $X$ -- некоторое множество.
 Бинарная операция на $X$ -- это отображение $\mu\colon X\times X\to X$ по правилу $(x, y)\mapsto \mu(x, y)$ для всех $x, y\in X$.
 \end{definition}
@@ -103,6 +105,7 @@
 \subsubsection{Ассоциативность}
 
 \begin{definition}
+\label{def::BinOpAssociative}
 Операция $\circ \colon X\times X\to X$ называется ассоциативной, если для любых элементов $x, y, z\in X$ выполнено $(x\circ y)\circ z = x\circ (y\circ z)$.
 \end{definition}
 
@@ -140,6 +143,7 @@
 \subsubsection{Нейтральный элемент}
 
 \begin{definition}
+\label{def::BinOpId}
 Пусть $\circ \colon X\times X\to X$ -- некоторая операция на $X$.
 Элемент $e\in X$ называется нейтральным если для каждого элемента $x\in X$ выполнены равенства $x\circ e = x$ и $e \circ x = x$.
 \end{definition}
@@ -177,6 +181,7 @@
 Давайте покажем это.
 
 \begin{claim}
+\label{claim::BinOpIdUnique}
 Пусть $X$ -- некоторое множество и $\circ \colon X\times X\to X$ -- бинарная операция.
 Тогда существует не более одного нейтрального элемента.
 \end{claim}
@@ -199,6 +204,7 @@
 Если же нейтрального элемента нет, то нет и способа говорить об обратимых элементах.
 
 \begin{definition}
+\label{def::BinOpInverse}
 Пусть $\circ \colon X\times X\to X$ -- некоторая операция с нейтральным элементом $e\in X$.
 Элемент $y\in X$ называется обратным к элементу  $x\in X$, если выполнено $x \circ y = e$ и $y \circ x = e$.
 \end{definition}
@@ -210,6 +216,7 @@
 Оказывается, что не больше одного, если операция ассоциативна.
 
 \begin{claim}
+\label{claim::BinOpInverseUnique}
 Пусть $\circ \colon X\times X \to X$ -- некоторая ассоциативная бинарная операция с нейтральным элементом $e\in X$.
 Тогда, для любого $x \in X$ существует не более одного обратного элемента.
 \end{claim}
@@ -274,6 +281,7 @@ y_1 \circ (x \circ y_2) = y_1 \circ e = y_1
 \subsubsection{Коммутативность}
 
 \begin{definition}
+\label{def::BinOpCommutative}
 Бинарная операция $\circ \colon X\times X\to X$ называется коммутативной если для любых $x,y\in X$ выполнено $x \circ y = y\circ x$.
 \end{definition}
 
@@ -309,6 +317,7 @@ y_1 \circ (x \circ y_2) = y_1 \circ e = y_1
 \footnote{Если проводить аналогию с программированием, то первая часть описывает интерфейс, а вторая часть -- это контракт на интерфейс.}
 
 \begin{definition}
+\label{def::Group}
 Определение группы
 \begin{itemize}
 \item\textbf{Данные:} 
@@ -344,6 +353,7 @@ y_1 \circ (x \circ y_2) = y_1 \circ e = y_1
 Если же в дополнение ко всему не важно в каком порядке стоят аргументы операции, то группа называется абелевой.
 
 \begin{examples}
+\label{ex::Groups}
 \begin{enumerate}
 \item Целые числа по сложению $(\mathbb Z, +)$ образуют абелеву группу.
 Действительно, операция $+$ ассоциативна, нейтральный элемент -- $0$, для каждого числа $n$ есть его обратный $-n$ и порядок аргументов в сложении не важен $n + m = m + n$.
@@ -357,10 +367,14 @@ y_1 \circ (x \circ y_2) = y_1 \circ e = y_1
 Действительно, умножение ассоциативно.
 Нейтральным элементом будет будет $1$, для всякого элемента $x$ обратным будет $1/x$, и порядок аргументов в умножении не важен $xy = yx$.
 
-\item Пусть $n$ -- положительное целое, тогда множество $\mathbb Z_n = \{0,1, \ldots, n-1\}$ с операцией $a + b \pmod n$ является абелевой группой.
+\item
+\label{ex::Groups::IntAddRemainders}
+Пусть $n$ -- положительное целое, тогда множество $\mathbb Z_n = \{0,1, \ldots, n-1\}$ с операцией $a + b \pmod n$ является абелевой группой.
 Для простоты операция сложения по модулю $n$ так же обозначается просто $+$.
 
-\item Пусть $n$ -- положительное целое.
+\item
+\label{ex::Groups::IntMultRemainders}
+Пусть $n$ -- положительное целое.
 Положим $\mathbb Z_n^* = \{m\in \mathbb Z_n \mid (m,n) = 1\}$ (множество всех чисел из $\mathbb Z_n$ взаимно простых с $n$), а операцию зададим как $a \cdot b \pmod n$.
 В этом случае мы так же получим абелеву группу.
 Для простоты операция в $\mathbb Z_n^*$ обозначается как операция умножения $\cdot$.
@@ -400,6 +414,7 @@ y_1 \circ (x \circ y_2) = y_1 \circ e = y_1
 \subsection{Подгруппы}
 
 \begin{definition}
+\label{def::Subgroup}
 Пусть $G$ -- некоторая группа.%
 \footnote{Строго говоря $(G,\cdot)$, но я буду использовать более короткие обозначения.}
 Определим подгруппу $H$ в группе $G$ следующим образом.
@@ -469,6 +484,7 @@ $
 \end{center}
 
 \begin{claim}
+\label{claim::GroupPowersProps}
 Пусть $G$ -- некоторая группа.
 Тогда
 \begin{enumerate}
@@ -570,6 +586,7 @@ g^{n-} g^{-m} = \underbrace{g^{-1}\cdot \ldots \cdot g^{-1}}_{n}\underbrace{g^{-
 
 
 \begin{definition}
+\label{def::CyclicSubgroup}
 Пусть $G$ -- группа и $g\in G$ -- некоторый элемент.
 Тогда обозначим множество всех целых степеней $g$ следующим образом
 \[
@@ -591,6 +608,7 @@ g^{n-} g^{-m} = \underbrace{g^{-1}\cdot \ldots \cdot g^{-1}}_{n}\underbrace{g^{-
 
 
 \begin{definition}
+\label{def::CyclicGroup}
 Пусть $G$ -- некоторая группа.
 Если найдется элемент $g\in G$ такой, что $\langle g\rangle = G$, то группа $G$ называется циклической.
 \end{definition}
@@ -610,6 +628,7 @@ g^{n-} g^{-m} = \underbrace{g^{-1}\cdot \ldots \cdot g^{-1}}_{n}\underbrace{g^{-
 \end{examples}
 
 \begin{definition}
+\label{def::OrdInGroup}
 Пусть $G$ -- некоторая группа и $g\in G$ -- ее элемент.
 Порядок элемента $g$ -- это минимальное положительное целое число такое, что $g^n = 1$ и $\infty$ если такого числа нет.
 Порядок $g$ обозначается $\ord g$.

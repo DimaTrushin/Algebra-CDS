@@ -141,6 +141,7 @@ f = (x-2) g+ (-6 x + 8)
 А многочлен $-6x + 8$ -- остаток.
 
 \begin{definition}
+\label{def::PolyDivision}
 Пусть $F$ -- поле.
 Предположим $f, g\in F[x]$, будем говорить, что $f$ делит $g$, если $g = fh$ для некоторого $h\in F[x]$.
 \end{definition}
@@ -149,11 +150,13 @@ f = (x-2) g+ (-6 x + 8)
 Так же, если $a\in F^*$, то $f$ делит $af$ и наоборот, так как $F$ -- поле.
 
 \begin{definition}
+\label{def::PolyUni}
 Пусть $F$ -- поле.
 Многочлен $f\in F[x]$ называется унитальным, если его старший коэффициент равен единице $1$.
 \end{definition}
 
 \begin{definition}
+\label{def::PolyGcd}
 Пусть $F$ -- поле и $f, g\in F[x]$ -- некоторые многочлены.
 Многочлен $d\in F[x]$ называется наибольшем общим делителем $f$ и $g$, если
 \begin{enumerate}
@@ -258,8 +261,8 @@ d_1 = a d_2\quad d_2 = b d_1
 \end{itemize}
 \end{remarks}
 
-
 \begin{claim}
+\label{claim::GcdEuclid}
 Пусть $F$ -- поле и $f, g, h\in F[x]$ -- некоторые многочлены.
 Тогда $(f, g) = (f, g - hf)$.
 \end{claim}
@@ -299,6 +302,7 @@ d_1 = a d_2\quad d_2 = b d_1
 \subsection{Однозначное разложение на множители}
 
 \begin{definition}
+\label{def::IrreduciblePolyOneVar}
 Пусть $F$ -- некоторое поле.
 \begin{itemize}
 \item Многочлен $ f\in F[x]\setminus F$ называется приводимым,%
@@ -345,6 +349,7 @@ d_1 = a d_2\quad d_2 = b d_1
 Тем не менее, я хочу доказать следующий частный случай общего результата.
 
 \begin{claim}
+\label{claim::PolyCoprimeDividesPoly}
 Пусть $F$ -- поле, $f, g\in F[x]$ -- два взаимно простых многочлена и $h\in F[x]$ делится на $f$ и на $g$.
 Тогда, $h$ делится на $fg$.
 \end{claim}
@@ -357,6 +362,7 @@ d_1 = a d_2\quad d_2 = b d_1
 \end{proof}
 
 \subsection{Кольцо остатков}
+\label{section::PolyRems}
 
 Теперь мы готовы познакомиться с очень важной конструкцией в алгебре -- кольцо полиномиальных остатков.
 
@@ -378,6 +384,7 @@ d_1 = a d_2\quad d_2 = b d_1
 \end{itemize}
 
 \begin{claim}
+\label{claim::PolyRemCorrectness}
 Если $F$ -- поле и $f\in F[x]$ -- некоторый многочлен, тогда множество $F[x]/(f)$ с введенными на нем операциями является коммутативным кольцом.
 \end{claim}
 \begin{proof}
@@ -431,6 +438,7 @@ gp = q_1 f + r_1,\;\deg r_1 < \deg f,\;\text{и}\;hp = q_2 f + r_2,\;\deg r_2 < 
 
 \begin{claim}
 [Китайская теорема об остатках]
+\label{claim::ChinesePoly}
 Пусть $f, g\in F[x]$ -- два взаимно простых многочлена, то есть $(f, g) = 1$.
 Тогда отображение
 \[

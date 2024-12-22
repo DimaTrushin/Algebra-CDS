@@ -13,6 +13,7 @@
 Давайте начнем с определений.
 
 \begin{definition}
+\label{def::GroupHom}
 Пусть $G$ и $H$ -- группы.
 Определим гомоморфизм $\varphi\colon G\to H$.
 \begin{itemize}
@@ -158,12 +159,17 @@ a, b\in \mathbb R\text{ такие что }a^2 + b^2 \neq 0
 С каждым гомоморфизмом мы можем ассоциировать специальные подгруппы: ядро и образ.
 
 \begin{definition}
+\label{def::GrHomKerIm}
 Пусть $\varphi\colon G\to H$ -- некоторый гомоморфизм групп.
 Тогда
 \begin{enumerate}
-\item ядро $\varphi$ -- это $\ker \varphi = \{g\in G \mid \varphi(g) = 1\} \subseteq G$.
+\item
+\label{def::GrHomKerIm::Ker}
+ядро $\varphi$ -- это $\ker \varphi = \{g\in G \mid \varphi(g) = 1\} \subseteq G$.
 
-\item образ$\varphi$ -- это $\Im \varphi = \{\varphi(g)\mid g\in G\} = \varphi(G) \subseteq H$.
+\item
+\label{def::GrHomKerIm::Im}
+образ$\varphi$ -- это $\Im \varphi = \{\varphi(g)\mid g\in G\} = \varphi(G) \subseteq H$.
 \end{enumerate}
 \end{definition}
 
@@ -230,6 +236,7 @@ a, b\in \mathbb R\text{ такие что }a^2 + b^2 \neq 0
 Мы собираемся изучить одну из таких.
 
 \begin{definition}
+\label{def::GroupProduct}
 Пусть $G$ и $H$ -- некоторые группы.
 Определим новую группу $G\times H$ следующим образом
 \begin{enumerate}
@@ -268,6 +275,7 @@ a, b\in \mathbb R\text{ такие что }a^2 + b^2 \neq 0
 Теперь я хочу сосредоточиться на очень важном классе групп, класс конечных абелевых групп.
 
 \begin{definition}
+\label{def::FAG}
 Конечная абелева группа -- это коммутативная (абелева) группа $G$ с конечным числом элементов.
 \end{definition}
 
@@ -328,7 +336,6 @@ k &\mapsto 5^k
 Изоморфизмы выше соответствуют одному из выбору образующего.
 \end{enumerate}
 \end{examples}
-
 
 \begin{claim}
 [Китайская теорема об остатках]

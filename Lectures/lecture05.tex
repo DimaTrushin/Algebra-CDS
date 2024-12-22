@@ -10,6 +10,7 @@
 Это ведет нас к понятию кольца.
 
 \begin{definition}
+\label{def::Ring}
 Я собираюсь определить кольцо $(R, +, \cdot)$ или более кратко $R$.
 \begin{itemize}
 \item\textbf{Данные:} 
@@ -67,6 +68,7 @@ a(b + c) = ab + ac \quad\text{and}\quad (a + b) c = ac + bc\quad \text{для в
 \end{definition}
 
 \begin{examples}
+\label{ex::Rings}
 \begin{enumerate}
 \item Пусть $R = \{*\}$ -- множество состоящее из одного элемента.
 Тогда существует только одна бинарная операция на таком множестве.
@@ -97,7 +99,9 @@ a(b + c) = ab + ac \quad\text{and}\quad (a + b) c = ac + bc\quad \text{для в
 
 \item Вещественные числа с обычными сложением и умножением $(\mathbb R, +, \cdot)$ являются полем.
 
-\item Множество остатков по модулю натурального числа $n$ с операциями сложения и умножения по модулю $n$ $(\mathbb Z_n, +, \cdot)$ является коммутативным кольцом.
+\item
+\label{ex::Rings::Zn}
+Множество остатков по модулю натурального числа $n$ с операциями сложения и умножения по модулю $n$ $(\mathbb Z_n, +, \cdot)$ является коммутативным кольцом.
 
 \item Если в предыдущем примере модуль $p$ является простым, то кольцо $(\mathbb Z_p, +,\cdot)$ является полем.
 Давайте поясним это.
@@ -130,6 +134,7 @@ a(b + c) = ab + ac \quad\text{and}\quad (a + b) c = ac + bc\quad \text{для в
 \end{remark}
 
 \begin{definition}
+\label{def::Subring}
 Пусть $R$ -- кольцо.
 Я собираюсь определить понятие подкольца $T\subseteq R$.
 \begin{itemize}
@@ -166,21 +171,30 @@ a(b + c) = ab + ac \quad\text{and}\quad (a + b) c = ac + bc\quad \text{для в
 Давайте разберем, какие интересные классы элементов имеются.
 
 \begin{definition}
+\label{def::RingElements}
 Пусть $R$ -- некоторое кольцо и $x\in R$.
 \begin{itemize}
-\item Элемент $x$ называется обратимым, если он обратим относительно операции умножения, то есть  $y\in R$ такой, что $xy = yx = 1$.
+\item
+\label{def::RingElements::Invertible}
+Элемент $x$ называется обратимым, если он обратим относительно операции умножения, то есть  $y\in R$ такой, что $xy = yx = 1$.
 В этом случае $y$ обозначается $x^{-1}$.
 Множество всех обратимых элементов в кольце $R$ обозначается $R^*$.
 
-\item Элемент $x$ называется левым делителем нуля, если найдется ненулевой элемент $y\in R$ такой, что $xy = 0$.
+\item
+\label{def::RingElements::ZeroDivs}
+Элемент $x$ называется левым делителем нуля, если найдется ненулевой элемент $y\in R$ такой, что $xy = 0$.
 Аналогично, $x$ называется правым делителем нуля, если найдется ненулевой $y\in R$ такой, что $yx = 0$.
 Множество левых и правых делителей нуля обозначается  $D_l(R)$ и $D_r(R)$ соответственно.
 Множество всех делителей нуля это $D(R) = D_l(R) \cup D_r(R)$.
 
-\item Элемент $x$ называется нильпотентом, если $x^n = 0$ для некоторого $n\in \mathbb N$.
+\item
+\label{def::RingElements::Nils}
+Элемент $x$ называется нильпотентом, если $x^n = 0$ для некоторого $n\in \mathbb N$.
 Множество всех нильпотентов кольца $R$ будем обозначать $\operatorname{nil}(R)$.
 
-\item Элемент $x$ называется идемпотентом если $x^2 = x$.
+\item
+\label{def::RingElements::Idempotents}
+Элемент $x$ называется идемпотентом если $x^2 = x$.
 Множество всех идемпотентов кольца $R$ обозначается $E(R)$.
 \end{itemize}
 \end{definition}
@@ -211,6 +225,7 @@ a(b + c) = ab + ac \quad\text{and}\quad (a + b) c = ac + bc\quad \text{для в
 Давайте разберемся с понятием идеала.
 
 \begin{definition}
+\label{def::Ideal}
 Пусть $(R, +, \cdot)$ -- кольцо.
 Я собираюсь определить идеал $I$ в кольце $R$.
 \begin{itemize}
@@ -268,7 +283,6 @@ I =
 \end{enumerate}
 \end{examples}
 
-
 \begin{claim}
 \label{claim::ZIdeals}
 Пусть $R = \mathbb Z$, тогда все идеалы имеют вид $n\mathbb Z$ для некоторого неотрицательного $n\in \mathbb Z$.
@@ -284,7 +298,6 @@ k I = \{k x \mid x\in n\mathbb Z\} = \{kn m\mid m\in \mathbb Z\} = kn\mathbb Z\s
 \]
 То есть любая подгруппа по сложению является идеалом.
 \end{proof}
-
 
 \begin{claim}
 \label{claim::ZnIdeals}
@@ -310,6 +323,7 @@ k I = \{k x \mid x\in n\mathbb Z\} = \{kn m\mid m\in \mathbb Z\} = kn\mathbb Z\s
 Давайте распространим эти определения на случай колец.
 
 \begin{definition}
+\label{def::RingHom}
 Пусть $(R, +, \cdot)$ и $(S, +, \cdot)$ -- кольца.
 Я собираюсь определить гомоморфизм колец $\phi\colon R\to S$.
 \begin{itemize}
@@ -392,6 +406,7 @@ a,b\in \mathbb R
 
 \begin{claim}
 [Китайская теорема об остатках]
+\label{claim::ZnChineseRing}
 Пусть $n$ и $m$ -- взаимно простые натуральные числа, то есть $(n,m) = 1$.
 Тогда отображение
 \[
@@ -407,12 +422,17 @@ a,b\in \mathbb R
 \end{proof}
 
 \begin{definition}
+\label{def::RingHomKerIm}
 Пусть $\phi\colon R\to S$ -- гомоморфизм колец.
 Тогда
 \begin{itemize}
-\item Ядро $\phi$ -- это $\ker\phi = \{r\in R\mid \phi(r) = 0\}\subseteq R$.
+\item
+\label{def::RingHomKerIm::Ker}
+Ядро $\phi$ -- это $\ker\phi = \{r\in R\mid \phi(r) = 0\}\subseteq R$.
 
-\item Образ $\phi$ -- это $\Im \phi = \{\phi(r) \mid r\in R\} = \phi(R)\subseteq S$.
+\item
+\label{def::RingHomKerIm::Im}
+Образ $\phi$ -- это $\Im \phi = \{\phi(r) \mid r\in R\} = \phi(R)\subseteq S$.
 \end{itemize}
 \end{definition}
 

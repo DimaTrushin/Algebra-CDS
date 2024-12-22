@@ -45,6 +45,7 @@
 \subsection{Общие замечания}
 
 \begin{definition}
+\label{def::HammingDist}
 Пусть $F$ -- конечный алфавит и $a, b\in F^n$ -- два слова длины $n$ в этом алфавите.
 Тогда расстояние Хэмминга между словами $a$ и $b$ это:
 \[
@@ -55,6 +56,7 @@
 Обратите внимание, если мы передавали по сети строчку $a\in F^n$, а нам пришла на вход строчка $b\in F^n$, то $\rho(a, b)$ -- это в точности количество произошедших ошибок.
 
 \begin{definition}
+\label{def::Coding}
 Пусть $F$ -- конечный алфавит.
 Тогда при $k < n$ инъективное отображение $\phi\colon F^k \to F^n$ называется кодированием, а образ $C = \Im \phi$ называется кодом.
 \end{definition}
@@ -63,6 +65,7 @@
 Вопросы нахождения функции кодирования и раскодирования больше сопряжены с эффективностью их вычисления, просто потому что при наличии множества $C$ кодирование может осуществляться любым вложением $\phi \colon F^k \to C$, а декодирование в худшем случае можно делать полным перебором, если оно возможно.
 
 \begin{definition}
+\label{def::CodeCorrectsTMist}
 Пусть $F$ -- конечный алфавит и $C\subseteq F^n$ -- некоторое подмножество.
 Тогда код $C$ исправляет $t$ ошибок, если для любого $x\in F^n$ существует не более одного $c\in C$ такого, что $\rho(x, c) \leqslant t$.
 \end{definition}
@@ -84,6 +87,7 @@
 Теперь я хочу получить численные характеристики кода, которые бы описывали его возможности по восстановлению ошибок.
 
 \begin{definition}
+\label{def::CodeMinDist}
 Пусть $F$ -- конечный алфавит и $C\subseteq F^n$ -- некоторое подмножество.
 Тогда минимальное расстояние кода $C$ это
 \[
@@ -92,6 +96,7 @@ d_C = \min_{c\neq c' \in C} \rho(c, c')
 \end{definition}
 
 \begin{definition}
+\label{def::CodeBall}
 Пусть $F$ -- конечный алфавит.
 Тогда шаром радиуса $r\in \mathbb Z$ с центром в $x\in F^n$ называется множество
 \[
@@ -100,6 +105,7 @@ B_r(x) = \{y\in F^n \mid \rho(x, y) \leqslant r\}
 \end{definition}
 
 \begin{claim}
+\label{claim::CodeCorrectsTMist}
 Пусть $F$ -- конечный алфавит и $C\subseteq F^n$ -- некоторое подмножество.
 Тогда эквивалентно
 \begin{enumerate}
@@ -142,6 +148,7 @@ B_r(x) = \{y\in F^n \mid \rho(x, y) \leqslant r\}
 Давайте поговорим о них.
 
 \begin{definition}
+\label{def::LinearCode}
 Пусть $F = \mathbb F_q$ -- конечное поле из $q = p^n$ элементов.
 Тогда подмножество $C\subseteq \mathbb F_q^n$ называется линейным кодом, если $C$ является подпространством над полем $\mathbb F_q$.
 Если при этом размерность подпространства равна $k$, то говорят, что $C$ -- это $(n, k)$-код.
@@ -152,6 +159,7 @@ B_r(x) = \{y\in F^n \mid \rho(x, y) \leqslant r\}
 Тогда кодирующее отображение $\phi\colon \mathbb F_q^k \to \mathbb F_q^n$ задано по правилу $x \mapsto Ax$, где у матрицы $A$ по столбцам поставлены векторы $c_1,\ldots,c_k$.
 
 \begin{definition}
+\label{def::HammingNorm}
 Пусть $x\in \mathbb F_q^n$, тогда нормой вектора $x$ будет называться его расстояние до нулевого вектора в норме Хэмминга, то есть
 \[
 \|x\| = \rho(x, 0) = |\{i \mid x_i \neq 0\}|
@@ -159,6 +167,7 @@ B_r(x) = \{y\in F^n \mid \rho(x, y) \leqslant r\}
 \end{definition}
 
 \begin{claim}
+\label{claim::LinearCodeMinDist}
 Пусть $C\subseteq \mathbb F_q^n$ -- линейный код.
 Тогда $d_C = \min_{0\neq c \in C}\|c\|$.
 \end{claim}
@@ -172,6 +181,7 @@ d_C = \min_{c \neq c'\in C}\rho(c,c') = \min_{c\neq c' \in C}\|c-c'\| = \min_{0\
 \end{proof}
 
 \begin{definition}
+\label{def::CodeMatrix}
 Пусть $C\subseteq F_q^n$ -- некоторый линейный код размерности $k$ и пусть $H\in \MatrixFDim{\mathbb F_q}{n-k}{n}$ такая, что $\rk H = n - k$ и $C = \{y\in \mathbb F_q^n \mid Hy = 0\}$.
 Тогда матрица $H$ называется проверочной матрицей для кода $C$.
 \end{definition}
@@ -188,6 +198,7 @@ d_C = \min_{c \neq c'\in C}\rho(c,c') = \min_{c\neq c' \in C}\|c-c'\| = \min_{0\
 \]
 
 \begin{claim}
+\label{claim::LinearCodeMinDistInTermOfMatrix}
 Пусть $C = \{y\in \mathbb F_q^n\mid Hy = 0\}$.
 Тогда эквивалентно
 \begin{enumerate}
@@ -205,6 +216,7 @@ d_C = \min_{c \neq c'\in C}\rho(c,c') = \min_{c\neq c' \in C}\|c-c'\| = \min_{0\
 \end{proof}
 
 \subsection{Коды Хэмминга}
+\label{section::HammingCodes}
 
 Давайте рассмотрим случай бинарного алфавита $F = \mathbb F_2 = \{0, 1\}$.
 Фиксируем число $m$ и составим матрицу $H$ следующим образом.
@@ -257,6 +269,7 @@ H_m e_i =
 Единственным его недостатком является малое число исправляемых ошибок.
 
 \subsection{Коды Рида-Соломона}
+\label{section::ReedSolomonCodes}
 
 \paragraph{Неравенство Синглтона}
 
@@ -265,6 +278,7 @@ H_m e_i =
 
 \begin{claim}
 [Неравенство Синглтона]
+\label{claim::SingletonIneq}
 Пусть $C\subseteq \mathbb F_q^n$ -- некоторый линейный $(n,k)$-код.
 Тогда $d_C \leqslant n - k + 1$.
 \end{claim}
@@ -371,6 +385,7 @@ Q(x_1) = b_1 D(x_1),\ldots,Q(x_n) = b_n D(x_n)
 В начале покажем следующее утверждение.
 
 \begin{claim}
+\label{claim::ReedSolomonLemma}
 Пусть $\phi\colon \mathbb F_q^k\to \mathbb F_q^n$ -- код Рида-Соломона построенный по точкам $x_1,\ldots, x_n\in \mathbb F_q$.
 Пусть $a\in \mathbb F_q^k$ -- некоторое слово, соответствующее ему кодовое слово будет $c =\phi(a)= (f_a(x_1),\ldots,f_a(x_n))$ и $b = (b_1,\ldots,b_n)$ -- испорченное кодовое слово.
 Зададим $e = [(n - k)/2]$ и пусть $D, Q\in \mathbb F_q[x]$ многочлены с неопределенными коэффициентами вид:
@@ -403,6 +418,7 @@ f_a(x_1) D(x_1) = b_1 D(x_1),\ldots,f_a(x_1) D(x_n) = b_n D(x_n)
 Это будет непосредственно следовать из утверждения ниже.
 
 \begin{claim}
+\label{claim::ReedSolomonDecoding}
 Пусть $\phi\colon \mathbb F_q^k\to \mathbb F_q^n$ -- код Рида-Соломона построенный по точкам $x_1,\ldots, x_n\in \mathbb F_q$.
 Пусть $a\in \mathbb F_q^k$ -- некоторое слово, соответствующее ему кодовое слово будет $c =\phi(a)= (f_a(x_1),\ldots,f_a(x_n))$ и $b = (b_1,\ldots,b_n)$ -- испорченное кодовое слово.
 Зададим $e = [(n - k)/2]$ и пусть $D, Q\in \mathbb F_q[x]$ какие-то многочлены вид
